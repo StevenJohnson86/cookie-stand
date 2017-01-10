@@ -16,16 +16,17 @@ var firstAndPike = {
   minCustPerHr: 23,
   maxCustPerHr: 65,
   avgSalePerCust: 6.3,
-  avgCustPerHr: function() {
+  randCustPerHr: function() {
     return (Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr);
   },
   hourlySales: [],
+  totalSales: [],
   salesPerHr: function() {
     this.hourlySales = [];
     for (var index = 0; index < storeHours.length; index++) {
       console.log('salesPerHr loop fires - index: ', index);
-    //figure out am pm and number rollover at 12 later
-      this.hourlySales.push(storeHours[index] + Math.floor((this.avgCustPerHr() * this.avgSalePerCust)) + ' cookies.');
+      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
+      this.hourlySales.push(rand);
     }
     return this.hourlySales;
   }
@@ -37,7 +38,7 @@ var seaTac = {
   minCustPerHr: 3,
   maxCustPerHr: 24,
   avgSalePerCust: 1.2,
-  avgCustPerHr: function() {
+  randCustPerHr: function() {
     return Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr;
   },
   hourlySales: [],
@@ -45,8 +46,8 @@ var seaTac = {
     this.hourlySales = [];
     for (var index = 0; index < storeHours.length; index++) {
       console.log('salesPerHr loop fires - index: ', index);
-    //figure out am pm and number rollover at 12 later
-      this.hourlySales.push(storeHours[index] + Math.floor((this.avgCustPerHr() * this.avgSalePerCust)) + ' cookies.');
+      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
+      this.hourlySales.push(rand);
     }
     return this.hourlySales;
   }
@@ -57,7 +58,7 @@ var seattleCenter = {
   minCustPerHr: 11,
   maxCustPerHr: 38,
   avgSalePerCust: 3.7,
-  avgCustPerHr: function() {
+  randCustPerHr: function() {
     return Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr;
   },
   hourlySales: [],
@@ -65,8 +66,8 @@ var seattleCenter = {
     this.hourlySales = [];
     for (var index = 0; index < storeHours.length; index++) {
       console.log('salesPerHr loop fires - index: ', index);
-    //figure out am pm and number rollover at 12 later
-      this.hourlySales.push(storeHours[index] + Math.floor((this.avgCustPerHr() * this.avgSalePerCust)) + ' cookies.');
+      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
+      this.hourlySales.push(rand);
     }
     return this.hourlySales;
   }
@@ -77,7 +78,7 @@ var capHill = {
   minCustPerHr: 20,
   maxCustPerHr: 38,
   avgSalePerCust: 2.3,
-  avgCustPerHr: function() {
+  randCustPerHr: function() {
     return Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr;
   },
   hourlySales: [],
@@ -85,8 +86,8 @@ var capHill = {
     this.hourlySales = [];
     for (var index = 0; index < storeHours.length; index++) {
       console.log('salesPerHr loop fires - index: ', index);
-    //figure out am pm and number rollover at 12 later
-      this.hourlySales.push(storeHours[index] + Math.floor((this.avgCustPerHr() * this.avgSalePerCust)) + ' cookies.');
+      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
+      this.hourlySales.push(rand);
     }
     return this.hourlySales;
   }
@@ -97,7 +98,7 @@ var alki = {
   minCustPerHr: 2,
   maxCustPerHr: 16,
   avgSalePerCust: 4.6,
-  avgCustPerHr: function() {
+  randCustPerHr: function() {
     return Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr;
   },
   hourlySales: [],
@@ -105,8 +106,8 @@ var alki = {
     this.hourlySales = [];
     for (var index = 0; index < storeHours.length; index++) {
       console.log('salesPerHr loop fires - index: ', index);
-    //figure out am pm and number rollover at 12 later
-      this.hourlySales.push(storeHours[index] + Math.floor((this.avgCustPerHr() * this.avgSalePerCust)) + ' cookies.');
+      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
+      this.hourlySales.push(rand);
     }
     return this.hourlySales;
   }
@@ -125,12 +126,10 @@ for (var index = 0; index < storeLocs.length; index++) {
   console.log('salesPerHr call for-loop fires. index = ', index);
   storeLocs[index].salesPerHr();//calls salesPerHr, filling hourlySales with data
 
-  for (var index1 = 0; index1 < storeLocs[index].hourlySales.length; index1++) {
-    var listId = salesList[index];
-    var storesList3 = document.getElementById(listId);
-    //console.log('listId = ' + listId);
+  for (var index1 = 0; index1 < storeLocs[index].hourlySales.length; index1++) { //list item for-loop
+    var storesList3 = document.getElementById(salesList[index]);
     var listEl = document.createElement('li');
-    listEl.textContent = storeLocs[index].hourlySales[index1];
+    listEl.textContent = storeHours[index1] + storeLocs[index].hourlySales[index1] + ' cookies.';
     storesList3.appendChild(listEl);
   }
 }
