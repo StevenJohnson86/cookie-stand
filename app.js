@@ -4,9 +4,9 @@ var storeSalesList = document.getElementById('sales-list');
 var salesList = ['firstAndPikeSales', 'seaTacSales', 'seattleCenterSales', 'capHillSales', 'alkiSales'];
 
 for (var index = 0; index < salesList.length; index++) {
-  var listEl = document.createElement('ul');
-  listEl.setAttribute('id', salesList[index]);
-  storeSalesList.appendChild(listEl);
+  var ulistEl = document.createElement('ul');
+  ulistEl.setAttribute('id', salesList[index]);
+  storeSalesList.appendChild(ulistEl);
 }
 
 var storeHours = ['6AM: ','7AM: ','8AM: ','9AM: ','10AM: ','11AM: ','12PM: ','1PM: ','2PM: ','3PM: ','4PM: ','5PM: ','6PM: ','7PM: ','8PM: '];
@@ -114,9 +114,16 @@ var alki = {
 
 var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
 
+for (var indexLH = 0; indexLH < salesList.length; indexLH++) {// sales lists titles loop. Bad formatting, but works; should fix later
+  var storesList2 = document.getElementById(salesList[indexLH]);
+  var listHEl = document.createElement('lh');
+  listHEl.textContent = salesList[indexLH];
+  storesList2.appendChild(listHEl);
+}
+
 for (var index = 0; index < storeLocs.length; index++) {
   console.log('salesPerHr call for-loop fires. index = ', index);
-  storeLocs[index].salesPerHr();
+  storeLocs[index].salesPerHr();//calls salesPerHr, filling hourlySales with data
 
   for (var index1 = 0; index1 < storeLocs[index].hourlySales.length; index1++) {
     var listId = salesList[index];
