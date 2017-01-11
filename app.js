@@ -2,15 +2,18 @@
 
 var tableHead = ['Store Location','6AM','7AM','8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','Daily Location Total'];
 var storeTable = document.getElementById('sales-list');
-var headTrEl = document.createElement('tr');
-headTrEl.setAttribute('id', 'table-head');
-storeTable.appendChild(headTrEl);
 
-for (var index = 0; index < tableHead.length; index++) { //creates and appends top table head
-  var tabHead = document.getElementById('table-head');
-  var topThEl = document.createElement('th');
-  topThEl.textContent = tableHead[index];
-  tabHead.appendChild(topThEl);
+function appendHead() {
+  var headTrEl = document.createElement('tr');
+  headTrEl.setAttribute('id', 'table-head');
+  storeTable.appendChild(headTrEl);
+
+  for (var index = 0; index < tableHead.length; index++) { //creates and appends top table head
+    var tabHead = document.getElementById('table-head');
+    var topThEl = document.createElement('th');
+    topThEl.textContent = tableHead[index];
+    tabHead.appendChild(topThEl);
+  }
 }
 
 function store(name, location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
@@ -89,6 +92,55 @@ var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
 //};
 //function store(location, minCustPerHr, maxCustPerHr, avgSalePerCust) <-- for reference purposes
 
+var hourlySalesSums = [];
+
+function sumHourlySales() {
+  for (var index = 0; index < (tableHead.length - 2); index++) { //sums sales by hour across all store locations, pushes to array hourlySalesSums
+    var sumHr = 0;
+
+    for (var i = 0; i < storeLocs.length; i++) {
+      sumHr = sumHr + storeLocs[i].hourlySales[index];
+      console.log('for-loop fires. sumHr = ' + sumHr);
+    }
+    hourlySalesSums.push(sumHr);
+  }
+}
+
+var sumTotal = 0;
+
+function sumTotalSales() {
+
+  for (var i = 0; i < hourlySalesSums.length; i++) {
+    sumTotal = sumTotal + hourlySalesSums[i];
+    console.log('for-loop fires. sumHr = ' + sumTotal);
+  }
+}
+
+function appendFoot() {
+  var footTrEl = document.createElement('tr');
+  footTrEl.setAttribute('id', 'table-foot');
+  storeTable.appendChild(footTrEl);
+
+  var tabFoot = document.getElementById('table-foot');
+  var footThEl = document.createElement('th');
+  footThEl.textContent = 'Totals';
+  tabFoot.appendChild(footThEl);
+
+  for (var index = 0; index < hourlySalesSums.length; index++) { //creates and appends footer table data
+    var footTdEl = document.createElement('td');
+    footTdEl.textContent = hourlySalesSums[index];
+    tabFoot.appendChild(footTdEl);
+  }
+
+  var totalsSum = document.createElement('td');
+  totalsSum.textContent = sumTotal;
+  tabFoot.appendChild(totalsSum);
+}
+
+//function calls below
+
+appendHead();
+
 for (var index = 0; index < storeLocs.length; index++) {
   console.log('salesPerHr call for-loop fires. index = ', index);
   storeLocs[index].salesPerHr();//calls salesPerHr, filling hourlySales with data
@@ -96,40 +148,6 @@ for (var index = 0; index < storeLocs.length; index++) {
   storeLocs[index].populateTable();//creates row in table
 }
 
-var hourlySalesSums = [];
-
-for (var index = 0; index < (tableHead.length - 2); index++) { //sums sales by hour across all store locations, pushes to array hourlySalesSums
-  var sumHr = 0;
-
-  for (var i = 0; i < storeLocs.length; i++) {
-    sumHr = sumHr + storeLocs[i].hourlySales[index];
-    console.log('for-loop fires. sumHr = ' + sumHr);
-  }
-  hourlySalesSums.push(sumHr);
-};
-
-var footTrEl = document.createElement('tr');
-footTrEl.setAttribute('id', 'table-foot');
-storeTable.appendChild(footTrEl);
-
-var tabFoot = document.getElementById('table-foot');
-var footThEl = document.createElement('th');
-footThEl.textContent = 'Totals';
-tabFoot.appendChild(footThEl);
-
-for (var index = 0; index < hourlySalesSums.length; index++) { //creates and appends footer table data
-  var footTdEl = document.createElement('td');
-  footTdEl.textContent = hourlySalesSums[index];
-  tabFoot.appendChild(footTdEl);
-}
-
-var sumTotal = 0;
-
-for (var i = 0; i < hourlySalesSums.length; i++) {
-  sumTotal = sumTotal + hourlySalesSums[i];
-  console.log('for-loop fires. sumHr = ' + sumTotal);
-}
-
-var totalsSum = document.createElement('td');
-totalsSum.textContent = sumTotal;
-tabFoot.appendChild(totalsSum);
+sumHourlySales();
+sumTotalSales();
+appendFoot();
