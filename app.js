@@ -34,158 +34,9 @@ store.prototype.sumSales = function() {
   return this.totalSum.push(sumHold);
 };
 
-/*test test test test test test test test test
-var firstAndPike = {
-  location: '1st and Pike',
-  minCustPerHr: 23,
-  maxCustPerHr: 65,
-  avgSalePerCust: 6.3,
+//vars, calls and document creation below this line
 
-  randCustPerHr: function() {
-    return (Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr);
-  },
-
-  hourlySales: [],
-  salesPerHr: function() {
-    this.hourlySales = [];
-    for (var index = 0; index < storeHours.length; index++) {
-      console.log('salesPerHr loop fires - index: ', index);
-      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
-      this.hourlySales.push(rand);
-    }
-    return this.hourlySales;
-  },
-
-  totalSum: [],
-  sumSales: function() {
-    var sumHold = 0;
-    for (var i = 0; i < this.hourlySales.length; i++) {
-      sumHold = sumHold + this.hourlySales[i];
-      console.log('for-loop fires. sumHold = ' + sumHold);
-    }
-    return this.totalSum.push(sumHold);
-  }
-};
-
-var seaTac = {
-  location: 'SeaTac Airport',
-  minCustPerHr: 3,
-  maxCustPerHr: 24,
-  avgSalePerCust: 1.2,
-  randCustPerHr: function() {
-    return Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr;
-  },
-  hourlySales: [],
-  salesPerHr: function() {
-    this.hourlySales = [];
-    for (var index = 0; index < storeHours.length; index++) {
-      console.log('salesPerHr loop fires - index: ', index);
-      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
-      this.hourlySales.push(rand);
-    }
-    return this.hourlySales;
-  },
-  totalSum: [],
-  sumSales: function() {
-    var sumHold = 0;
-    for (var i = 0; i < this.hourlySales.length; i++) {
-      sumHold = sumHold + this.hourlySales[i];
-      console.log('for-loop fires. sumHold = ' + sumHold);
-    }
-    return this.totalSum.push(sumHold);
-  }
-};
-
-var seattleCenter = {
-  location: 'Seattle Center',
-  minCustPerHr: 11,
-  maxCustPerHr: 38,
-  avgSalePerCust: 3.7,
-  randCustPerHr: function() {
-    return Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr;
-  },
-  hourlySales: [],
-  salesPerHr: function() {
-    this.hourlySales = [];
-    for (var index = 0; index < storeHours.length; index++) {
-      console.log('salesPerHr loop fires - index: ', index);
-      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
-      this.hourlySales.push(rand);
-    }
-    return this.hourlySales;
-  },
-  totalSum: [],
-  sumSales: function() {
-    var sumHold = 0;
-    for (var i = 0; i < this.hourlySales.length; i++) {
-      sumHold = sumHold + this.hourlySales[i];
-      console.log('for-loop fires. sumHold = ' + sumHold);
-    }
-    return this.totalSum.push(sumHold);
-  }
-};
-
-var capHill = {
-  location: 'Capital Hill',
-  minCustPerHr: 20,
-  maxCustPerHr: 38,
-  avgSalePerCust: 2.3,
-  randCustPerHr: function() {
-    return Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr;
-  },
-  hourlySales: [],
-  salesPerHr: function() {
-    this.hourlySales = [];
-    for (var index = 0; index < storeHours.length; index++) {
-      console.log('salesPerHr loop fires - index: ', index);
-      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
-      this.hourlySales.push(rand);
-    }
-    return this.hourlySales;
-  },
-  totalSum: [],
-  sumSales: function() {
-    var sumHold = 0;
-    for (var i = 0; i < this.hourlySales.length; i++) {
-      sumHold = sumHold + this.hourlySales[i];
-      console.log('for-loop fires. sumHold = ' + sumHold);
-    }
-    return this.totalSum.push(sumHold);
-  }
-};
-
-var alki = {
-  location: 'Alki',
-  minCustPerHr: 2,
-  maxCustPerHr: 16,
-  avgSalePerCust: 4.6,
-  randCustPerHr: function() {
-    return Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr;
-  },
-  hourlySales: [],
-  salesPerHr: function() {
-    this.hourlySales = [];
-    for (var index = 0; index < storeHours.length; index++) {
-      console.log('salesPerHr loop fires - index: ', index);
-      var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
-      this.hourlySales.push(rand);
-    }
-    return this.hourlySales;
-  },
-  totalSum: [],
-  sumSales: function() {
-    var sumHold = 0;
-    for (var i = 0; i < this.hourlySales.length; i++) {
-      sumHold = sumHold + this.hourlySales[i];
-      console.log('for-loop fires. sumHold = ' + sumHold);
-    }
-    return this.totalSum.push(sumHold);
-  }
-};
-endtest endtest endtest endtest endtest endtest endtest endtest endtest*/
-
-//calls and document creation below this line
-/*var storesData = [['1st and Pike', 23, 65, 6.3],
+/*var storesData = [['1st and Pike', 23, 65, 6.3], why can't I construct objects from for-loop?
 ['SeaTac Airport', 3, 24, 1.2],
 ['Seattle Center', 11, 38, 3.7],
 ['Capitol Hill', 20, 38, 2.3],
@@ -202,7 +53,7 @@ var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
 //var tableHead = ['Store Location', 'Total Sales' ...]
 var storeSalesList = document.getElementById('sales-list');
 
-//for (var i = 0; i < storesData.length; i++) {
+//for (var i = 0; i < storesData.length; i++) {   Couldn't get for loop working.... ugh
 //  storeLocs[i] = new store(storesData[i][0], storesData[i][1], storesData[i][2], storesData[i][3]);
 //};
 //function store(location, minCustPerHr, maxCustPerHr, avgSalePerCust) <-- for reference purposes
@@ -213,28 +64,28 @@ for (var index = 0; index < storeLocs.length; index++) {
   storeLocs[index].sumSales();//calls sumSales, summing hourlySales.
 }
 
-for (var index = 0; index < salesList.length; index++) {
-  var ulistEl = document.createElement('tr');
-  ulistEl.setAttribute('id', salesList[index]);
-  storeSalesList.appendChild(ulistEl);
+for (var index = 0; index < salesList.length; index++) {//creates table row
+  var trEl = document.createElement('tr');
+  trEl.setAttribute('id', salesList[index]);
+  storeSalesList.appendChild(trEl);
 }
 
-for (var indexLH = 0; indexLH < salesList.length; indexLH++) {// sales lists titles loop.
+for (var indexLH = 0; indexLH < salesList.length; indexLH++) {// creates store locations table head
   var storesList2 = document.getElementById(salesList[indexLH]);
-  var listHEl = document.createElement('th');
-  listHEl.textContent = storeLocs[indexLH].location;
-  storesList2.appendChild(listHEl);
+  var thEl = document.createElement('th');
+  thEl.textContent = storeLocs[indexLH].location;
+  storesList2.appendChild(thEl);
 
-  for (var index1 = 0; index1 < storeLocs[indexLH].hourlySales.length; index1++) { //list item for-loop
+  for (var index1 = 0; index1 < storeLocs[indexLH].hourlySales.length; index1++) { //creates table data sales output
     var storesList3 = document.getElementById(salesList[indexLH]);
-    var listEl = document.createElement('td');
-    listEl.textContent = storeLocs[indexLH].hourlySales[index1];
-    storesList3.appendChild(listEl);
+    var tdEl = document.createElement('td');
+    tdEl.textContent = storeLocs[indexLH].hourlySales[index1];
+    storesList3.appendChild(tdEl);
   }
 
-  //this section adds a sumSales list element after the hourly sales data has been input
+  //this section adds a sumSales table data element after the hourly sales data has been input
   var storesTotalList = document.getElementById(salesList[indexLH]);
-  var listTotalEl = document.createElement('td');
-  listTotalEl.textContent = 'Total: ' + storeLocs[indexLH].totalSum + ' cookies';
-  storesTotalList.appendChild(listTotalEl);
+  var totalTdEl = document.createElement('td');
+  totalTdEl.textContent = storeLocs[indexLH].totalSum;
+  storesTotalList.appendChild(totalTdEl);
 }
