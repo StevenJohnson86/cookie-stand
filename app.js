@@ -1,8 +1,20 @@
 'use strict';
 
-var storeHours = ['6AM: ','7AM: ','8AM: ','9AM: ','10AM: ','11AM: ','12PM: ','1PM: ','2PM: ','3PM: ','4PM: ','5PM: ','6PM: ','7PM: ','8PM: '];
+var tableHead = ['Store Location','6AM','7AM','8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','Daily Location Total'];
+var storeTable = document.getElementById('sales-list');
+var headTrEl = document.createElement('tr');
+headTrEl.setAttribute('id', 'table-head');
+storeTable.appendChild(headTrEl);
 
-function store(location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
+for (var index = 0; index < tableHead.length; index++) { //creates and appends top table head
+  var tabHead = document.getElementById('table-head');
+  var topThEl = document.createElement('th');
+  topThEl.textContent = tableHead[index];
+  tabHead.appendChild(topThEl);
+}
+
+function store(name, location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
+  this.name = name;
   this.location = location;
   this.minCustPerHr = minCustPerHr;
   this.maxCustPerHr = maxCustPerHr;
@@ -17,7 +29,7 @@ store.prototype.randCustPerHr = function() {
 
 store.prototype.salesPerHr = function() {
   this.hourlySales = [];
-  for (var index = 0; index < storeHours.length; index++) {
+  for (var index = 0; index < (tableHead.length - 2); index++) {
     console.log('salesPerHr loop fires - index: ', index);
     var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
     this.hourlySales.push(rand);
@@ -34,24 +46,43 @@ store.prototype.sumSales = function() {
   return this.totalSum.push(sumHold);
 };
 
-//vars, calls and document creation below this line
+store.prototype.populateTable = function() {
+  var tableLoc = document.getElementById('sales-list');
+
+  var trEl = document.createElement('tr'); //row creator
+  trEl.setAttribute('id', this.name);
+  tableLoc.appendChild(trEl);
+
+  var locHead = document.getElementById(this.name); // creates store locations table head
+  var thEl = document.createElement('th');
+  thEl.textContent = this.location;
+  locHead.appendChild(thEl);
+
+  for (var index = 0; index < this.hourlySales.length; index++) { //creates table data sales output
+    var storeRow = document.getElementById(this.name);
+    var tdEl = document.createElement('td');
+    tdEl.textContent = this.hourlySales[index];
+    storeRow.appendChild(tdEl);
+  }
+
+  var storeTotal = document.getElementById(this.name); //imputs salesSum for store
+  var totalTdEl = document.createElement('td');
+  totalTdEl.textContent = this.totalSum;
+  storeTotal.appendChild(totalTdEl);
+};
 
 /*var storesData = [['1st and Pike', 23, 65, 6.3], why can't I construct objects from for-loop?
 ['SeaTac Airport', 3, 24, 1.2],
 ['Seattle Center', 11, 38, 3.7],
 ['Capitol Hill', 20, 38, 2.3],
 ['Alki', 2, 16, 4.6]];*/
-var firstAndPike = new store('1st and Pike', 23, 65, 6.3);
-var seaTac = new store('SeaTac Airport', 3, 24, 1.2);
-var seattleCenter = new store('Seattle Center', 11, 38, 3.7);
-var capHill = new store('Capitol Hill', 20, 38, 2.3);
-var alki = new store('Alki', 2, 16, 4.6);
+var firstAndPike = new store('firstAndPike', '1st and Pike', 23, 65, 6.3);
+var seaTac = new store('seaTac', 'SeaTac Airport', 3, 24, 1.2);
+var seattleCenter = new store('seattleCenter', 'Seattle Center', 11, 38, 3.7);
+var capHill = new store('capHill', 'Capitol Hill', 20, 38, 2.3);
+var alki = new store('alki', 'Alki', 2, 16, 4.6);
 
-var storeRows = ['firstAndPikeSales', 'seaTacSales', 'seattleCenterSales', 'capHillSales', 'alkiSales'];
 var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
-
-var tableHead = ['Store Location','6AM','7AM','8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','Total Sales']
-var storeTable = document.getElementById('sales-list');
 
 //for (var i = 0; i < storesData.length; i++) {   Couldn't get for loop working.... ugh
 //  storeLocs[i] = new store(storesData[i][0], storesData[i][1], storesData[i][2], storesData[i][3]);
@@ -62,36 +93,43 @@ for (var index = 0; index < storeLocs.length; index++) {
   console.log('salesPerHr call for-loop fires. index = ', index);
   storeLocs[index].salesPerHr();//calls salesPerHr, filling hourlySales with data
   storeLocs[index].sumSales();//calls sumSales, summing hourlySales.
+  storeLocs[index].populateTable();//creates row in table
 }
 
-for (var index = 0; index < tableHead.length; index++) {
-  var topThEl = document.createElement('th');
-  topThEl.textContent = tableHead[index];
-  storeTable.appendChild(topThEl);
-}
+var hourlySalesSums = [];
 
-for (var index = 0; index < storeRows.length; index++) {//creates table row
-  var trEl = document.createElement('tr');
-  trEl.setAttribute('id', storeRows[index]);
-  storeTable.appendChild(trEl);
+for (var index = 0; index < (tableHead.length - 2); index++) { //sums sales by hour across all store locations, pushes to array hourlySalesSums
+  var sumHr = 0;
 
-  var storeRows2 = document.getElementById(storeRows[index]); // creates store locations table head
-  var thEl = document.createElement('th');
-  thEl.textContent = storeLocs[index].location;
-  storeRows2.appendChild(thEl);
-
-  for (var index1 = 0; index1 < storeLocs[index].hourlySales.length; index1++) { //creates table data sales output
-    var storeRows3 = document.getElementById(storeRows[index]);
-    var tdEl = document.createElement('td');
-    tdEl.textContent = storeLocs[index].hourlySales[index1];
-    storeRows3.appendChild(tdEl);
+  for (var i = 0; i < storeLocs.length; i++) {
+    sumHr = sumHr + storeLocs[i].hourlySales[index];
+    console.log('for-loop fires. sumHr = ' + sumHr);
   }
+  hourlySalesSums.push(sumHr);
+};
 
-  //this section adds a sumSales table data element after the hourly sales data has been input
-  var storesTotalList = document.getElementById(storeRows[index]);
-  var totalTdEl = document.createElement('td');
-  totalTdEl.textContent = storeLocs[index].totalSum;
-  storesTotalList.appendChild(totalTdEl);
+var footTrEl = document.createElement('tr');
+footTrEl.setAttribute('id', 'table-foot');
+storeTable.appendChild(footTrEl);
+
+var tabFoot = document.getElementById('table-foot');
+var footThEl = document.createElement('th');
+footThEl.textContent = 'Totals';
+tabFoot.appendChild(footThEl);
+
+for (var index = 0; index < hourlySalesSums.length; index++) { //creates and appends footer table data
+  var footTdEl = document.createElement('td');
+  footTdEl.textContent = hourlySalesSums[index];
+  tabFoot.appendChild(footTdEl);
 }
 
-//for (var index = 0; index < storeRows.length; index++) {
+var sumTotal = 0;
+
+for (var i = 0; i < hourlySalesSums.length; i++) {
+  sumTotal = sumTotal + hourlySalesSums[i];
+  console.log('for-loop fires. sumHr = ' + sumTotal);
+}
+
+var totalsSum = document.createElement('td');
+totalsSum.textContent = sumTotal;
+tabFoot.appendChild(totalsSum);
