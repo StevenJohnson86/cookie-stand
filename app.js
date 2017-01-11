@@ -47,11 +47,11 @@ var seattleCenter = new store('Seattle Center', 11, 38, 3.7);
 var capHill = new store('Capitol Hill', 20, 38, 2.3);
 var alki = new store('Alki', 2, 16, 4.6);
 
-var salesList = ['firstAndPikeSales', 'seaTacSales', 'seattleCenterSales', 'capHillSales', 'alkiSales'];
+var storeRows = ['firstAndPikeSales', 'seaTacSales', 'seattleCenterSales', 'capHillSales', 'alkiSales'];
 var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
 
-//var tableHead = ['Store Location', 'Total Sales' ...]
-var storeSalesList = document.getElementById('sales-list');
+var tableHead = ['Store Location','6AM','7AM','8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','Total Sales']
+var storeTable = document.getElementById('sales-list');
 
 //for (var i = 0; i < storesData.length; i++) {   Couldn't get for loop working.... ugh
 //  storeLocs[i] = new store(storesData[i][0], storesData[i][1], storesData[i][2], storesData[i][3]);
@@ -64,28 +64,34 @@ for (var index = 0; index < storeLocs.length; index++) {
   storeLocs[index].sumSales();//calls sumSales, summing hourlySales.
 }
 
-for (var index = 0; index < salesList.length; index++) {//creates table row
-  var trEl = document.createElement('tr');
-  trEl.setAttribute('id', salesList[index]);
-  storeSalesList.appendChild(trEl);
+for (var index = 0; index < tableHead.length; index++) {
+  var topThEl = document.createElement('th');
+  topThEl.textContent = tableHead[index];
+  storeTable.appendChild(topThEl);
 }
 
-for (var indexLH = 0; indexLH < salesList.length; indexLH++) {// creates store locations table head
-  var storesList2 = document.getElementById(salesList[indexLH]);
-  var thEl = document.createElement('th');
-  thEl.textContent = storeLocs[indexLH].location;
-  storesList2.appendChild(thEl);
+for (var index = 0; index < storeRows.length; index++) {//creates table row
+  var trEl = document.createElement('tr');
+  trEl.setAttribute('id', storeRows[index]);
+  storeTable.appendChild(trEl);
 
-  for (var index1 = 0; index1 < storeLocs[indexLH].hourlySales.length; index1++) { //creates table data sales output
-    var storesList3 = document.getElementById(salesList[indexLH]);
+  var storeRows2 = document.getElementById(storeRows[index]); // creates store locations table head
+  var thEl = document.createElement('th');
+  thEl.textContent = storeLocs[index].location;
+  storeRows2.appendChild(thEl);
+
+  for (var index1 = 0; index1 < storeLocs[index].hourlySales.length; index1++) { //creates table data sales output
+    var storeRows3 = document.getElementById(storeRows[index]);
     var tdEl = document.createElement('td');
-    tdEl.textContent = storeLocs[indexLH].hourlySales[index1];
-    storesList3.appendChild(tdEl);
+    tdEl.textContent = storeLocs[index].hourlySales[index1];
+    storeRows3.appendChild(tdEl);
   }
 
   //this section adds a sumSales table data element after the hourly sales data has been input
-  var storesTotalList = document.getElementById(salesList[indexLH]);
+  var storesTotalList = document.getElementById(storeRows[index]);
   var totalTdEl = document.createElement('td');
-  totalTdEl.textContent = storeLocs[indexLH].totalSum;
+  totalTdEl.textContent = storeLocs[index].totalSum;
   storesTotalList.appendChild(totalTdEl);
 }
+
+//for (var index = 0; index < storeRows.length; index++) {
