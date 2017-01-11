@@ -1,6 +1,15 @@
 'use strict';
 
+var firstAndPike = new store('firstAndPike', '1st and Pike', 23, 65, 6.3);
+var seaTac = new store('seaTac', 'SeaTac Airport', 3, 24, 1.2);
+var seattleCenter = new store('seattleCenter', 'Seattle Center', 11, 38, 3.7);
+var capHill = new store('capHill', 'Capitol Hill', 20, 38, 2.3);
+var alki = new store('alki', 'Alki', 2, 16, 4.6);
+
 var tableHead = ['Store Location','6AM','7AM','8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','Daily Location Total'];
+var hourlySalesSums = [];
+var sumTotal = 0;
+
 var storeTable = document.getElementById('sales-list');
 
 function appendHead() {
@@ -41,6 +50,7 @@ store.prototype.salesPerHr = function() {
 };
 
 store.prototype.sumSales = function() {
+  this.salesPerHr();
   var sumHold = 0;
   for (var i = 0; i < this.hourlySales.length; i++) {
     sumHold = sumHold + this.hourlySales[i];
@@ -50,6 +60,8 @@ store.prototype.sumSales = function() {
 };
 
 store.prototype.populateTable = function() {
+  this.sumSales();
+
   var tableLoc = document.getElementById('sales-list');
 
   var trEl = document.createElement('tr'); //row creator
@@ -79,11 +91,6 @@ store.prototype.populateTable = function() {
 ['Seattle Center', 11, 38, 3.7],
 ['Capitol Hill', 20, 38, 2.3],
 ['Alki', 2, 16, 4.6]];*/
-var firstAndPike = new store('firstAndPike', '1st and Pike', 23, 65, 6.3);
-var seaTac = new store('seaTac', 'SeaTac Airport', 3, 24, 1.2);
-var seattleCenter = new store('seattleCenter', 'Seattle Center', 11, 38, 3.7);
-var capHill = new store('capHill', 'Capitol Hill', 20, 38, 2.3);
-var alki = new store('alki', 'Alki', 2, 16, 4.6);
 
 var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
 
@@ -92,7 +99,12 @@ var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
 //};
 //function store(location, minCustPerHr, maxCustPerHr, avgSalePerCust) <-- for reference purposes
 
-var hourlySalesSums = [];
+function populateStTabs(){
+  for (var index = 0; index < storeLocs.length; index++) {
+    console.log('salesPerHr call for-loop fires. index = ', index);
+    storeLocs[index].populateTable();//creates row in table
+  }
+}
 
 function sumHourlySales() {
   for (var index = 0; index < (tableHead.length - 2); index++) { //sums sales by hour across all store locations, pushes to array hourlySalesSums
@@ -105,8 +117,6 @@ function sumHourlySales() {
     hourlySalesSums.push(sumHr);
   }
 }
-
-var sumTotal = 0;
 
 function sumTotalSales() {
 
@@ -140,14 +150,7 @@ function appendFoot() {
 //function calls below
 
 appendHead();
-
-for (var index = 0; index < storeLocs.length; index++) {
-  console.log('salesPerHr call for-loop fires. index = ', index);
-  storeLocs[index].salesPerHr();//calls salesPerHr, filling hourlySales with data
-  storeLocs[index].sumSales();//calls sumSales, summing hourlySales.
-  storeLocs[index].populateTable();//creates row in table
-}
-
+populateStTabs();
 sumHourlySales();
 sumTotalSales();
 appendFoot();
