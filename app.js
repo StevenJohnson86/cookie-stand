@@ -1,6 +1,8 @@
 'use strict';
 
 var storeHours = ['6AM: ','7AM: ','8AM: ','9AM: ','10AM: ','11AM: ','12PM: ','1PM: ','2PM: ','3PM: ','4PM: ','5PM: ','6PM: ','7PM: ','8PM: '];
+var salesList = ['firstAndPikeSales', 'seaTacSales', 'seattleCenterSales', 'capHillSales', 'alkiSales'];
+var storeSalesList = document.getElementById('sales-list');
 
 var firstAndPike = {
   location: '1st and Pike',
@@ -25,6 +27,7 @@ var firstAndPike = {
 
   totalSum: [],
   sumSales: function() {
+    this.salesPerHr();
     var sumHold = 0;
     for (var i = 0; i < this.hourlySales.length; i++) {
       sumHold = sumHold + this.hourlySales[i];
@@ -54,6 +57,7 @@ var seaTac = {
   },
   totalSum: [],
   sumSales: function() {
+    this.salesPerHr();
     var sumHold = 0;
     for (var i = 0; i < this.hourlySales.length; i++) {
       sumHold = sumHold + this.hourlySales[i];
@@ -83,6 +87,7 @@ var seattleCenter = {
   },
   totalSum: [],
   sumSales: function() {
+    this.salesPerHr();
     var sumHold = 0;
     for (var i = 0; i < this.hourlySales.length; i++) {
       sumHold = sumHold + this.hourlySales[i];
@@ -112,6 +117,7 @@ var capHill = {
   },
   totalSum: [],
   sumSales: function() {
+    this.salesPerHr();
     var sumHold = 0;
     for (var i = 0; i < this.hourlySales.length; i++) {
       sumHold = sumHold + this.hourlySales[i];
@@ -141,6 +147,7 @@ var alki = {
   },
   totalSum: [],
   sumSales: function() {
+    this.salesPerHr();
     var sumHold = 0;
     for (var i = 0; i < this.hourlySales.length; i++) {
       sumHold = sumHold + this.hourlySales[i];
@@ -152,13 +159,10 @@ var alki = {
 
 //calls and document creation below this line
 
-var salesList = ['firstAndPikeSales', 'seaTacSales', 'seattleCenterSales', 'capHillSales', 'alkiSales'];
-var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
-var storeSalesList = document.getElementById('sales-list');
+var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki]; //cannot move this var until object literals created
 
 for (var index = 0; index < storeLocs.length; index++) {
-  console.log('salesPerHr call for-loop fires. index = ', index);
-  storeLocs[index].salesPerHr();//calls salesPerHr, filling hourlySales with data
+  console.log('sumSales call for-loop fires. index = ', index);
   storeLocs[index].sumSales();//calls sumSales, summing hourlySales.
 }
 
