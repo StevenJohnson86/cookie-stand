@@ -93,13 +93,13 @@ var storesData = [['firstAndPike','1st and Pike', 23, 65, 6.3],
 ['alki','Alki', 2, 16, 4.6]];
 
 //var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
-var stores = [];
+
 for (var i = 0; i < storesData.length; i++) {
   storesData[i] = new store(storesData[i][0], storesData[i][1], storesData[i][2], storesData[i][3], storesData[i][4]);
 };
 // function store(location, minCustPerHr, maxCustPerHr, avgSalePerCust) <-- for reference purposes
 
-function populateStTabs(){
+function populateStTabs(){// Do i even need this func anymore?
   for (var index = 0; index < storesData.length; index++) {
     console.log('salesPerHr call for-loop fires. index = ', index);
     storesData[index].populateTable();//creates row in table
@@ -126,7 +126,7 @@ function sumTotalSales() {
   }
 }
 
-function appendFoot() {
+function appendFoot() {//Needs to find and delete tablefooter if it exists, and create new footer everytime it's called.
   var footTrEl = document.createElement('tr');
   footTrEl.setAttribute('id', 'table-foot');
   storeTable.appendChild(footTrEl);
@@ -146,6 +146,7 @@ function appendFoot() {
   totalsSum.textContent = sumTotal;
   tabFoot.appendChild(totalsSum);
 }
+//----------------------------------------------------------------
 
 var newLocForm = document.getElementById('storeForm'); //Form
 
@@ -174,6 +175,7 @@ function newLocInst (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust) 
 
 appendHead();
 populateStTabs();
+
 sumHourlySales();
 sumTotalSales();
 appendFoot();
