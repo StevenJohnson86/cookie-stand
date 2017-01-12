@@ -1,10 +1,10 @@
 'use strict';
 
-var firstAndPike = new store('firstAndPike', '1st and Pike', 23, 65, 6.3);
-var seaTac = new store('seaTac', 'SeaTac Airport', 3, 24, 1.2);
-var seattleCenter = new store('seattleCenter', 'Seattle Center', 11, 38, 3.7);
-var capHill = new store('capHill', 'Capitol Hill', 20, 38, 2.3);
-var alki = new store('alki', 'Alki', 2, 16, 4.6);
+// var firstAndPike = new store('firstAndPike', '1st and Pike', 23, 65, 6.3);
+// var seaTac = new store('seaTac', 'SeaTac Airport', 3, 24, 1.2);
+// var seattleCenter = new store('seattleCenter', 'Seattle Center', 11, 38, 3.7);
+// var capHill = new store('capHill', 'Capitol Hill', 20, 38, 2.3);
+// var alki = new store('alki', 'Alki', 2, 16, 4.6);
 
 var tableHead = ['Store Location','6AM','7AM','8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','Daily Location Total'];
 var hourlySalesSums = [];
@@ -80,29 +80,29 @@ store.prototype.populateTable = function() {
     storeRow.appendChild(tdEl);
   }
 
-  var storeTotal = document.getElementById(this.name); //imputs salesSum for store
+  var storeTotal = document.getElementById(this.name); //inputs salesSum for store
   var totalTdEl = document.createElement('td');
   totalTdEl.textContent = this.totalSum;
   storeTotal.appendChild(totalTdEl);
 };
 
-/*var storesData = [['1st and Pike', 23, 65, 6.3], why can't I construct objects from for-loop?
-['SeaTac Airport', 3, 24, 1.2],
-['Seattle Center', 11, 38, 3.7],
-['Capitol Hill', 20, 38, 2.3],
-['Alki', 2, 16, 4.6]];*/
+var storesData = [['firstAndPike','1st and Pike', 23, 65, 6.3],
+['seaTac','SeaTac Airport', 3, 24, 1.2],
+['seattleCenter','Seattle Center', 11, 38, 3.7],
+['capHill','Capitol Hill', 20, 38, 2.3],
+['alki','Alki', 2, 16, 4.6]];
 
-var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
-
-//for (var i = 0; i < storesData.length; i++) {   Couldn't get for loop working.... ugh
-//  storeLocs[i] = new store(storesData[i][0], storesData[i][1], storesData[i][2], storesData[i][3]);
-//};
-//function store(location, minCustPerHr, maxCustPerHr, avgSalePerCust) <-- for reference purposes
+//var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
+var stores = [];
+for (var i = 0; i < storesData.length; i++) {
+  storesData[i] = new store(storesData[i][0], storesData[i][1], storesData[i][2], storesData[i][3], storesData[i][4]);
+};
+// function store(location, minCustPerHr, maxCustPerHr, avgSalePerCust) <-- for reference purposes
 
 function populateStTabs(){
-  for (var index = 0; index < storeLocs.length; index++) {
+  for (var index = 0; index < storesData.length; index++) {
     console.log('salesPerHr call for-loop fires. index = ', index);
-    storeLocs[index].populateTable();//creates row in table
+    storesData[index].populateTable();//creates row in table
   }
 }
 
@@ -110,8 +110,8 @@ function sumHourlySales() {
   for (var index = 0; index < (tableHead.length - 2); index++) { //sums sales by hour across all store locations, pushes to array hourlySalesSums
     var sumHr = 0;
 
-    for (var i = 0; i < storeLocs.length; i++) {
-      sumHr = sumHr + storeLocs[i].hourlySales[index];
+    for (var i = 0; i < storesData.length; i++) {
+      sumHr = sumHr + storesData[i].hourlySales[index];
       console.log('for-loop fires. sumHr = ' + sumHr);
     }
     hourlySalesSums.push(sumHr);
@@ -147,7 +147,7 @@ function appendFoot() {
   tabFoot.appendChild(totalsSum);
 }
 
-var newLocForm = document.getElementById('storeForm');
+var newLocForm = document.getElementById('storeForm'); //Form
 
 newLocForm.addEventListener('submit',function(event){
   event.preventDefault();
@@ -159,13 +159,15 @@ newLocForm.addEventListener('submit',function(event){
   var maxCust = event.target.maxCust.value;
   var avgSale = event.target.avgSale.value;
   console.log('working part 1');
+  var instance = new store (sName,sLoc,minCust,maxCust,avgSale);
+  storeLocs.push(instance);
   newLocInst(sName,sLoc,minCust,maxCust,avgSale);
   console.log('working');
 },false);
 
 function newLocInst (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
-  var instance = new store (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust);
-  instance.populateTable();
+  // var instance = new store (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust);
+  //instance.populateTable();
 };
 
 //function calls below
