@@ -112,17 +112,13 @@ function sumHourlySales() {
 
     for (var i = 0; i < storesData.length; i++) {
       sumHr = sumHr + storesData[i].hourlySales[index];
-      console.log('for-loop fires. sumHr = ' + sumHr);
+      //console.log('for-loop fires. sumHr = ' + sumHr);
     }
     hourlySalesSums.push(sumHr);
   }
-}
-
-function sumTotalSales() {
-
   for (var i = 0; i < hourlySalesSums.length; i++) {
     sumTotal = sumTotal + hourlySalesSums[i];
-    console.log('for-loop fires. sumHr = ' + sumTotal);
+    //console.log('for-loop fires. sumHr = ' + sumTotal);
   }
 }
 
@@ -160,15 +156,14 @@ newLocForm.addEventListener('submit',function(event){
   var maxCust = event.target.maxCust.value;
   var avgSale = event.target.avgSale.value;
   console.log('working part 1');
-  var instance = new store (sName,sLoc,minCust,maxCust,avgSale);
-  storeLocs.push(instance);
-  newLocInst(sName,sLoc,minCust,maxCust,avgSale);
+  //var instance = new store (sName,sLoc,minCust,maxCust,avgSale);
+  storesData.push(new store (sName,sLoc,minCust,maxCust,avgSale));
+  newLocHandler(sName,sLoc,minCust,maxCust,avgSale);
   console.log('working');
 },false);
 
-function newLocInst (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
-  // var instance = new store (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust);
-  //instance.populateTable();
+function newLocHandler (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
+  storesData[storesData.length - 1].populateTable();
 };
 
 //function calls below
@@ -177,5 +172,5 @@ appendHead();
 populateStTabs();
 
 sumHourlySales();
-sumTotalSales();
+//sumTotalSales();
 appendFoot();
