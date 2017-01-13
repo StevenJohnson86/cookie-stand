@@ -1,31 +1,21 @@
 'use strict';
-
-// var firstAndPike = new store('firstAndPike', '1st and Pike', 23, 65, 6.3);
-// var seaTac = new store('seaTac', 'SeaTac Airport', 3, 24, 1.2);
-// var seattleCenter = new store('seattleCenter', 'Seattle Center', 11, 38, 3.7);
-// var capHill = new store('capHill', 'Capitol Hill', 20, 38, 2.3);
-// var alki = new store('alki', 'Alki', 2, 16, 4.6);
-
+//------------------------------Global Variables----------------------------------------
 var tableHead = ['Store Location','6AM','7AM','8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','Daily Location Total'];
+
+var storesData = [['firstAndPike','1st and Pike', 23, 65, 6.3],
+['seaTac','SeaTac Airport', 3, 24, 1.2],
+['seattleCenter','Seattle Center', 11, 38, 3.7],
+['capHill','Capitol Hill', 20, 38, 2.3],
+['alki','Alki', 2, 16, 4.6]];
+
 var hourlySalesSums = [];
 var sumTotal = 0;
 
 var storeTable = document.getElementById('sales-table');
+var newLocForm = document.getElementById('storeForm'); //Form
 
-function appendHead() {
-  var headTrEl = document.createElement('tr');
-  headTrEl.setAttribute('id', 'table-head');
-  storeTable.appendChild(headTrEl);
-
-  for (var index = 0; index < tableHead.length; index++) { //creates and appends top table head
-    var tabHead = document.getElementById('table-head');
-    var topThEl = document.createElement('th');
-    topThEl.textContent = tableHead[index];
-    tabHead.appendChild(topThEl);
-  }
-}
-
-function store(name, location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
+//----------------------------------Store Constructor-->Store Methods-----------------------
+function Store(name, location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
   this.name = name;
   this.location = location;
   this.minCustPerHr = minCustPerHr;
@@ -35,11 +25,11 @@ function store(name, location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
   this.totalSum = [];
 }
 
-store.prototype.randCustPerHr = function() {
+Store.prototype.randCustPerHr = function() {
   return (Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1)) + this.minCustPerHr);
 };
 
-store.prototype.salesPerHr = function() {
+Store.prototype.salesPerHr = function() {
   this.hourlySales = [];
   for (var index = 0; index < (tableHead.length - 2); index++) {
     console.log('salesPerHr loop fires - index: ', index);
@@ -49,7 +39,7 @@ store.prototype.salesPerHr = function() {
   return this.hourlySales;
 };
 
-store.prototype.sumSales = function() {
+Store.prototype.sumSales = function() {
   this.salesPerHr();
   var sumHold = 0;
   for (var i = 0; i < this.hourlySales.length; i++) {
@@ -59,13 +49,13 @@ store.prototype.sumSales = function() {
   return this.totalSum.push(sumHold);
 };
 
-store.prototype.populateTable = function() {
+Store.prototype.populateTable = function() {
   this.sumSales();
 
   var tableLoc = document.getElementById('sales-table');
   var trEl = document.createElement('tr'); //row creator
 
-  var locHead = document.getElementById(this.name); // creates store locations table head
+  var locHead = document.getElementById(this.name); // creates Store locations table head
   var thEl = document.createElement('th');
   thEl.textContent = this.location;
   trEl.appendChild(thEl);
@@ -82,18 +72,28 @@ store.prototype.populateTable = function() {
   tableLoc.appendChild(trEl); //to append row with other elements attached to it
 };
 
-var storesData = [['firstAndPike','1st and Pike', 23, 65, 6.3],
-['seaTac','SeaTac Airport', 3, 24, 1.2],
-['seattleCenter','Seattle Center', 11, 38, 3.7],
-['capHill','Capitol Hill', 20, 38, 2.3],
-['alki','Alki', 2, 16, 4.6]];
+//--------------------------------global functions-----------------------------------
 
-for (var i = 0; i < storesData.length; i++) {
-  storesData[i] = new store(storesData[i][0], storesData[i][1], storesData[i][2], storesData[i][3], storesData[i][4]);
-};
-// function store(location, minCustPerHr, maxCustPerHr, avgSalePerCust) <-- for reference purposes
+function initStores() {
+  for (var i = 0; i < storesData.length; i++) {
+    storesData[i] = new Store(storesData[i][0], storesData[i][1], storesData[i][2], storesData[i][3], storesData[i][4]);
+  }
+}
 
-function populateStTabs(){// Do i even need this func anymore?
+function appendHead() {
+  var headTrEl = document.createElement('tr');
+  headTrEl.setAttribute('id', 'table-head');
+  storeTable.appendChild(headTrEl);
+
+  for (var index = 0; index < tableHead.length; index++) { //creates and appends top table head
+    var tabHead = document.getElementById('table-head');
+    var topThEl = document.createElement('th');
+    topThEl.textContent = tableHead[index];
+    tabHead.appendChild(topThEl);
+  }
+}
+
+function populateInit(){//population of data and table elements for initial stores
   for (var index = 0; index < storesData.length; index++) {
     console.log('salesPerHr call for-loop fires. index = ', index);
     storesData[index].populateTable();//creates row in table
@@ -119,7 +119,7 @@ function sumHourlySales() {
 }
 
 function appendFoot() {
-  var footTrEl = document.createElement('tr');
+  var footTrEl = document.createElement('tfoot');
   footTrEl.setAttribute('id', 'table-foot');
   storeTable.appendChild(footTrEl);
 
@@ -138,9 +138,7 @@ function appendFoot() {
   totalsSum.textContent = sumTotal;
   tabFoot.appendChild(totalsSum);
 }
-//----------------------------------------------------------------
-
-var newLocForm = document.getElementById('storeForm'); //Form
+//----------------------------Form Listener and Handler------------------------------------
 
 newLocForm.addEventListener('submit',function(event){
   event.preventDefault();
@@ -153,25 +151,22 @@ newLocForm.addEventListener('submit',function(event){
   var avgSale = event.target.avgSale.value;
   console.log('working part 1');
   //var instance = new store (sName,sLoc,minCust,maxCust,avgSale);
-  storesData.push(new store (sName,sLoc,minCust,maxCust,avgSale));
+  storesData.push(new Store (sName,sLoc,minCust,maxCust,avgSale));
   newLocHandler(sName,sLoc,minCust,maxCust,avgSale);
   console.log('working');
 },false);
 
 function newLocHandler (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
   var table = document.getElementById('sales-table');
-  //var foot = table.lastChild;//delete last row
-  table.removeChild(table.lastChild);
-  storesData[storesData.length - 1].populateTable();
-  sumHourlySales();
-  appendFoot();
+  table.removeChild(table.lastChild);//removes tablefooter
+  storesData[storesData.length - 1].populateTable();//calls new store's methods
+  sumHourlySales();//after new store created, re-sums sales by hour across all stores
+  appendFoot();//re-adds table footer with new data
 };
 
-//function calls below
-
+//function calls below-------------------------------------------------------------
+initStores();
 appendHead();
-populateStTabs();
-
+populateInit();
 sumHourlySales();
-
 appendFoot();
