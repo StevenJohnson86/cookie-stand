@@ -55,7 +55,7 @@ Store.prototype.populateTable = function() {
   var tableLoc = document.getElementById('sales-table');
   var trEl = document.createElement('tr'); //row creator
 
-  var locHead = document.getElementById(this.name); // creates Store locations table head
+  //var locHead = document.getElementById(this.name); // creates Store locations table head
   var thEl = document.createElement('th');
   thEl.textContent = this.location;
   trEl.appendChild(thEl);
@@ -152,11 +152,11 @@ newLocForm.addEventListener('submit',function(event){
   console.log('working part 1');
   //var instance = new store (sName,sLoc,minCust,maxCust,avgSale);
   storesData.push(new Store (sName,sLoc,minCust,maxCust,avgSale));
-  newLocHandler(sName,sLoc,minCust,maxCust,avgSale);
+  newLocHandler();
   console.log('working');
 },false);
 
-function newLocHandler (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
+function newLocHandler () {
   var table = document.getElementById('sales-table');
   table.removeChild(table.lastChild);//removes tablefooter
   storesData[storesData.length - 1].populateTable();//calls new store's methods
