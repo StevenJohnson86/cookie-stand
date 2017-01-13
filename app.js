@@ -10,7 +10,7 @@ var tableHead = ['Store Location','6AM','7AM','8AM','9AM','10AM','11AM','12PM','
 var hourlySalesSums = [];
 var sumTotal = 0;
 
-var storeTable = document.getElementById('sales-list');
+var storeTable = document.getElementById('sales-table');
 
 function appendHead() {
   var headTrEl = document.createElement('tr');
@@ -62,28 +62,24 @@ store.prototype.sumSales = function() {
 store.prototype.populateTable = function() {
   this.sumSales();
 
-  var tableLoc = document.getElementById('sales-list');
-
+  var tableLoc = document.getElementById('sales-table');
   var trEl = document.createElement('tr'); //row creator
-  trEl.setAttribute('id', this.name);
-  tableLoc.appendChild(trEl);
 
   var locHead = document.getElementById(this.name); // creates store locations table head
   var thEl = document.createElement('th');
   thEl.textContent = this.location;
-  locHead.appendChild(thEl);
+  trEl.appendChild(thEl);
 
   for (var index = 0; index < this.hourlySales.length; index++) { //creates table data sales output
-    var storeRow = document.getElementById(this.name);
     var tdEl = document.createElement('td');
     tdEl.textContent = this.hourlySales[index];
-    storeRow.appendChild(tdEl);
+    trEl.appendChild(tdEl);
   }
 
-  var storeTotal = document.getElementById(this.name); //inputs salesSum for store
   var totalTdEl = document.createElement('td');
   totalTdEl.textContent = this.totalSum;
-  storeTotal.appendChild(totalTdEl);
+  trEl.appendChild(totalTdEl);
+  tableLoc.appendChild(trEl); //to append row with other elements attached to it
 };
 
 var storesData = [['firstAndPike','1st and Pike', 23, 65, 6.3],
@@ -91,8 +87,6 @@ var storesData = [['firstAndPike','1st and Pike', 23, 65, 6.3],
 ['seattleCenter','Seattle Center', 11, 38, 3.7],
 ['capHill','Capitol Hill', 20, 38, 2.3],
 ['alki','Alki', 2, 16, 4.6]];
-
-//var storeLocs = [firstAndPike, seaTac, seattleCenter, capHill, alki];
 
 for (var i = 0; i < storesData.length; i++) {
   storesData[i] = new store(storesData[i][0], storesData[i][1], storesData[i][2], storesData[i][3], storesData[i][4]);
@@ -107,6 +101,8 @@ function populateStTabs(){// Do i even need this func anymore?
 }
 
 function sumHourlySales() {
+  hourlySalesSums = [];
+  sumTotal = 0;
   for (var index = 0; index < (tableHead.length - 2); index++) { //sums sales by hour across all store locations, pushes to array hourlySalesSums
     var sumHr = 0;
 
@@ -122,7 +118,7 @@ function sumHourlySales() {
   }
 }
 
-function appendFoot() {//Needs to find and delete tablefooter if it exists, and create new footer everytime it's called.
+function appendFoot() {
   var footTrEl = document.createElement('tr');
   footTrEl.setAttribute('id', 'table-foot');
   storeTable.appendChild(footTrEl);
@@ -163,7 +159,12 @@ newLocForm.addEventListener('submit',function(event){
 },false);
 
 function newLocHandler (name,location, minCustPerHr, maxCustPerHr, avgSalePerCust) {
+  var table = document.getElementById('sales-table');
+  //var foot = table.lastChild;//delete last row
+  table.removeChild(table.lastChild);
   storesData[storesData.length - 1].populateTable();
+  sumHourlySales();
+  appendFoot();
 };
 
 //function calls below
@@ -172,5 +173,5 @@ appendHead();
 populateStTabs();
 
 sumHourlySales();
-//sumTotalSales();
+
 appendFoot();
