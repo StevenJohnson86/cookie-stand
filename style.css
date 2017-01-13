@@ -1,4 +1,30 @@
 * {
   background-color: #303333;
   color: white;
+  border: 1px solid beige;
+}
+
+#nav-bar {
+  float: left;
+  width: 50%;
+}
+
+#nav-bar li {
+  display: inline;
+  border: 1px solid blue;
+  border-radius: 7px;
+  padding: 2px 5px;
+}
+
+#header h1 {
+  width: 40%;
+  display: inline;
+  float: left;
+
+}
+
+#header img {
+  float: right;
+
+  height: 9em;
 }
