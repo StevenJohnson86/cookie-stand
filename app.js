@@ -34,9 +34,10 @@ Store.prototype.salesPerHr = function() {
   for (var index = 0; index < (tableHead.length - 2); index++) {
     console.log('salesPerHr loop fires - index: ', index);
     var rand = Math.floor((this.randCustPerHr() * this.avgSalePerCust));
+    console.log('index, rand= ' + index, rand);
     this.hourlySales.push(rand);
   }
-  return this.hourlySales;
+  // return this.hourlySales;
 };
 
 Store.prototype.sumSales = function() {
@@ -146,9 +147,9 @@ newLocForm.addEventListener('submit',function(event){
 
   var sName = event.target.storeName.value;
   var sLoc = event.target.location.value;
-  var minCust = event.target.minCust.value;
-  var maxCust = event.target.maxCust.value;
-  var avgSale = event.target.avgSale.value;
+  var minCust = parseInt(event.target.minCust.value);
+  var maxCust = parseInt(event.target.maxCust.value);
+  var avgSale = parseInt(event.target.avgSale.value);
   console.log('working part 1');
   //var instance = new store (sName,sLoc,minCust,maxCust,avgSale);
   storesData.push(new Store (sName,sLoc,minCust,maxCust,avgSale));
