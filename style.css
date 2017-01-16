@@ -1,11 +1,16 @@
 * {
-  background-color: #303333;
-  color: white;
-  border: 1px solid white;
+  /*background-color: lightgray;*/
+  color: black;
+  /*height: 100%;*/
+  /*border: 1px solid white;*/
+}
+
+html, body {
+  height: 100%;
 }
 
 header, header * {
-  background-color: brown;
+  background-color: lightblue;
 }
 
 body {
@@ -15,14 +20,15 @@ body {
 }
 header {
   width: 100%;
+  min-width: 960px;
   top: 0em;
   left: 0em;
   height: 9em;
-  background-color: brown;
+  background-color: lightblue;
 }
 
 #header h1 {
-background-color: brown;
+background-color: lightblue;
   text-align: center;
   margin: 0em 0em 0em 0em;
   font-size: 4em;
@@ -46,7 +52,7 @@ background-color: brown;
 }*/
 
 #nav-bar ul {
-  background-color: brown;
+  background-color: lightblue;
   margin-top: 2em;
   padding: 0em;
   list-style: none;
@@ -63,28 +69,61 @@ background-color: brown;
   border-radius: 7px;
 }
 
-a {
+li a {
   background-color: salmon;
   color: black;
   text-decoration: none;
 }
 
-/*#main-content {
-  width: 100%;
-  margin: 12em 1em 0em 1em;
+main {
+  height:100%;
 }
+
+#main-content {
+  width: 100%;
+  min-width:960px;
+  margin: 0%;
+  height: 100%;
+}
+
+#main-content * {
+  margin: 0%;
+}
+
+/*#main-content div {
+  height: 85%
+}*/
+#location-bg {
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  left: 0px;
+  z-index: -2;
+}
+
+/*#contact-bg {
+  width: 1090px;
+  position: relative;
+  overflow: hidden;
+  left: ;
+  z-index: -1;
+}*/
 
 #biz-locations {
-  width: 33%;
+  width: 67%;
+  min-width: 67%;
+  height: 100%;
+  min-height:90%;
   float:left;
+  /*background-image: url("coffee-bg.jpg");*/
+  /*background-size: */
 }
 
-#hrs-operation {
-  width: 33%;
-  float:left;
-}
 
 #contact-info {
   width: 33%;
   float:right;
-}*/
+  background-image: url("cookies-bg.jpg");
+  background-size: auto 100%;
+  height: 100%;
+}
