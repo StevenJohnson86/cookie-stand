@@ -7,18 +7,21 @@
 
 html, body {
   height: 100%;
+  margin: 0em;
 }
 
-header, header * {
-  background-color: lightblue;
+/*header, header * {
+  background-color: lightblue;*/
 }
 
 body {
   width: 100%;
   height: 100%;
-  margin: 0px;
+  margin: 0em 0em;
+  padding: 0em;
 }
 header {
+  position: absolute;
   width: 100%;
   min-width: 960px;
   top: 0em;
@@ -36,11 +39,10 @@ background-color: lightblue;
 
 #salmon-left {
   position: absolute;
-  background-color: none;
   left: 2em;
   top: 0.5em;
   width: 15%;
-  /*z-index:;*/
+  overflow: hidden;
 }
 
 #salmon-right {
@@ -48,6 +50,7 @@ background-color: lightblue;
   right: 2em;
   top: 0.5em;
   width: 15%;
+  overflow: hidden;
 }
 
 #nav-bar ul {
@@ -77,6 +80,9 @@ li a {
 
 main {
   height:100%;
+  width: 100%;
+  margin: 9em 0em 0em 0em;
+
 }
 
 #main-content {
@@ -118,6 +124,7 @@ main {
 
 #biz-locations dt {
   margin-top: 1em;
+  font-weight: bold;
 }
 
 #contact-info {
@@ -149,4 +156,30 @@ main {
   margin: 3em;
   text-align: center;
   border-radius: 7px;
+}
+
+/*-------Sales specific styling-------*/
+
+#table-title {
+  text-align: center;
+}
+
+#storeDiv {
+  margin-top: 9em;
+}
+
+table {
+  border: 1px solid black;
+  text-align: center;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+tr, th, td, tfoot {
+  border: 1px solid black;
+}
+
+#sales-body {
+  background-color: lightgray;
 }
