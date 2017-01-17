@@ -34,22 +34,21 @@ background-color: lightblue;
   font-size: 4em;
 }
 
-/*#salmon-left {
+#salmon-left {
   position: absolute;
   background-color: none;
-  left: 0em;
-  top: 0em;
-  height: 9em
-  transform: scaleX(-1);
-}*/
+  left: 2em;
+  top: 0.5em;
+  width: 15%;
+  /*z-index:;*/
+}
 
-/*#salmon-right {
+#salmon-right {
   position: absolute;
-  right: 0em;
-  top: 0em;
-  margin: 0em 0em 0em 12em;
-  height: 9em;
-}*/
+  right: 2em;
+  top: 0.5em;
+  width: 15%;
+}
 
 #nav-bar ul {
   background-color: lightblue;
@@ -67,6 +66,7 @@ background-color: lightblue;
   background-color: salmon;
   border: 1px solid black;
   border-radius: 7px;
+
 }
 
 li a {
